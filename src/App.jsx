@@ -4,23 +4,21 @@ import searchIcon from './assets/search.svg'
 import MovieCard from './components/MovieCard'
 
 function App() {
-	const apiKey = ''
-	const apiUrl = `/?apikey=${apiKey}`
-	// const egUrl = 'https://www.omdbapi.com/?apikey=21a42c27&s=spiderman'
+	const apiKey = import.meta.env.VITE_API_KEY
+	const apiUrl = import.meta.env.VITE_API_URL
 
 	const [inputText, setInputText] = useState('')
 	const [movies, setMovies] = useState([])
 
 	const searchMovies = async (title) => {
-		const response = await fetch(`${apiUrl}&s=${title}`)
+		const response = await fetch(`${apiUrl}/?apikey=${apiKey}&s=${title}`)
 		const data = await response.json()
 
 		data.Response === 'True' ? setMovies(data.Search) : setMovies([]);
 	}
+	
 	useEffect(() => {
-		// searchMovies('batman')
-		console.log(import.meta.env.VITE_API_URL);
-		console.log(import.meta.env.VITE_API_KEY);
+		searchMovies('batman')
 		
 	}, [])
 
